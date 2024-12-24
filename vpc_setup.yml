@@ -1,6 +1,6 @@
 - hosts: localhost
   connection: local
-  gather_facts: False
+  gather_facts: false
   tasks:
     - name: Import VPC Variables
       include_vars:
@@ -11,8 +11,13 @@
         name: "{{ vpc_name }}"
         cidr_block: "{{ vpcCidr }}"
         region: "{{ region }}"
-        dns_support: yes
-        dns_hostnames: yes
+        dns_support: true
+        dns_hostnames: true
         tenancy: default
         state: "{{ state }}"
       register: vpcout
+
+    - name: Debug VPC Information
+      debug:
+        msg: "VPC created with ID: {{ vpcout.vpc.id }}"
+
