@@ -3,15 +3,16 @@
   gather_facts: False
   tasks:
     - name: Import VPC Variables
-      include_vars: vars/vpc_setup
+      include_vars:
+        file: /home/ubuntu/ansible-aws-vpc/vars/vpc_setup.yml
 
-    - name: Ceate vprofile VPC
+    - name: Create vprofile VPC
       ec2_vpc_net:
-        name: "{{vpc_name}}"
-        cidr_block: "{{vpcCidr}}"
-        region: "{{region}}"
+        name: "{{ vpc_name }}"
+        cidr_block: "{{ vpcCidr }}"
+        region: "{{ region }}"
         dns_support: yes
         dns_hostnames: yes
         tenancy: default
-        state: "{{state}}"
-      register: vpcout  
+        state: "{{ state }}"
+      register: vpcout
