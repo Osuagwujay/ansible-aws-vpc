@@ -1,23 +1,23 @@
-- hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Import VPC Variables
-      include_vars:
-        file: /home/ubuntu/ansible-aws-vpc/vars/vpc_setup.yml
+vpc_name: "Vprofile-vpc"
 
-    - name: Create vprofile VPC
-      ec2_vpc_net:
-        name: "{{ vpc_name }}"
-        cidr_block: "{{ vpcCidr }}"
-        region: "{{ region }}"
-        dns_support: true
-        dns_hostnames: true
-        tenancy: default
-        state: "{{ state }}"
-      register: vpcout
+# VPC Range
+vpcCidr: "172.20.0.0/16"
 
-    - name: Debug VPC Information
-      debug:
-        msg: "VPC created with ID: {{ vpcout.vpc.id }}"
+# Subnets Range (listed as an array)
+PubSubCidrs:
+  - 172.20.1.0/24
+  - 172.20.2.0/24
+  - 172.20.3.0/24
+  - 172.20.4.0/24
+  - 172.20.5.0/24
+  - 172.20.6.0/24
 
+# Region Name
+region: "us-east-2"
+
+# Availability Zones
+zone1: us-east-2a
+zone2: us-east-2b
+zone3: us-east-2c
+
+state: present
